@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{lazy,Suspense} from 'react';
 import ReactDOM from 'react-dom/client';
 
 import Header from './src/components/Header';
@@ -12,6 +12,13 @@ import ResMenu from './src/components/ResMenu';
 
 
 
+//Chunking
+// Code Splitting
+// Dynamic Bundling
+// Lazy Loading
+// On Demand loading
+
+const Grocery=lazy(()=>import("./src/components/Grocery"));
 
 
 
@@ -49,6 +56,12 @@ const appRounter=createBrowserRouter([
         {
             path: "/restaurants/:resId",
             element:<ResMenu/>
+    
+        }
+        ,
+        {
+            path: "/grocery",
+            element: <Suspense fallback={<h1>Loading........</h1>}><Grocery/></Suspense>
     
         }
 
