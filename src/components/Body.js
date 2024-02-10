@@ -2,6 +2,7 @@
 import RestaurantCard from "./RestaurantCard";
 import { useState,useEffect } from "react";
 import Shimmer from "./Shimmer";
+import { Link } from "react-router-dom";
 
 
 
@@ -27,7 +28,7 @@ const Body=()=>{
         //optional chaining
         setlistres(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
         setfilterRes(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
-        
+        console.log(filterRes);
     };
 
     //Conditional Rendring
@@ -61,8 +62,9 @@ const Body=()=>{
                 
             </div>
             <div className='res-container'>
+                
                
-               { filterRes.map((resturant) => (<RestaurantCard key={resturant.info.id} resData={resturant}/>))}
+               { filterRes.map((resturant) => (<Link to={"/restaurants/"+resturant.info.id}><RestaurantCard key={resturant.info.id} resData={resturant}/></Link>))}
                
             </div>
         </div>
