@@ -1,15 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
  import img from '../../assets/logo.png';
- import { useState } from 'react';
+ import { useState,useContext } from 'react';
  import { Link } from 'react-router-dom';
  import useOnlineStatus from '../utils/useOnlineStatus';
+import UserContext from '../utils/UserContext';
+import { useSelector } from 'react-redux';
 
 
 
 export const Header= ()=>{
 const [btnName,setbtnName]=useState(["Login"]);
 const onlineStatus=useOnlineStatus();
+const data=useContext(UserContext);
+
+/// subscribing to the store using a Selector
+const cartItems=useSelector((store)=> store.cart.items);
+
 
     return(
         <div>
@@ -30,8 +37,9 @@ const onlineStatus=useOnlineStatus();
                     <li className='px-4 hover:bg-gray-400 p-2 rounded-lg'>
                     <Link to="/grocery">Grocery</Link>
                     </li>
-                <li className='px-4 hover:bg-gray-400 p-2 rounded-lg'>Cart</li>
+                <li className='px-4 hover:bg-gray-400 p-2 rounded-lg font-bold text-xl'><Link to="/cart">Cart ({cartItems.length} items)</Link></li>
                 <button className='px-4 hover:bg-blue-400 p-2 rounded-lg' onClick={()=>{setbtnName(btnName=='Login'? "Logout" : "Login")}}>{btnName}</button>
+                <li className='text-black font-bold p-2'>{data.loggedInUser}</li>
             </ul>
         </div>
         </div>
